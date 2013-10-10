@@ -4,8 +4,10 @@ if (!defined('DIR')) exit('No direct script access allowed');
 class Ban {
 
 	const MAX_LOG=10;
+	const BAN_MIN=10;
+	const BAN_HOUR=0;
 	
-	public function __construct(){
+	private function __construct(){
 		
 	}
 	
@@ -27,7 +29,7 @@ class Ban {
 		$req = "INSERT INTO `ban` (`log`, `date`) VALUES (:log, :date);";
 		$req = $db->prepare($req);
 		$req->bindValue(':log', $log, PDO::PARAM_STR);
-		$req->bindValue(':date', time()+10*60, PDO::PARAM_STR);
+		$req->bindValue(':date', time(self::BAN_HOUR*3600)+(self::BAN_MIN*60), PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 		self::clear_log_try($log);

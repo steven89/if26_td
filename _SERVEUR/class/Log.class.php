@@ -6,7 +6,7 @@ require_once('UserManager.class.php');
 
 class Log {
 
-	public function __construct(){
+	private function __construct(){
 	
 	}
 	
