@@ -11,6 +11,6 @@ Webservice écrit en PHP.
 
 Client Android : **WIP**
 
-Client Iphone : **TODO**
+Client Iphone : **WIP**
 
 Client PhoneGap : **TODO**
