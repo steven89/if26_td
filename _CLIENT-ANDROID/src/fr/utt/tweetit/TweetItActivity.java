@@ -17,13 +17,14 @@ public class TweetItActivity extends FragmentActivity implements OnFragmentInter
 
 	private  ListItemFragment myTweetListFrag;
 	private  ListItemFragment friendListFrag;
+	private NewMessageFragment postMessageFrag;
 
 	private JSONObject meTabData;
 	private JSONObject followersTabData;
 	private JSONObject followingTabData;
 
 	private Bundle extras;
-	private TextView token;
+	private String token;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +32,7 @@ public class TweetItActivity extends FragmentActivity implements OnFragmentInter
 		setContentView(R.layout.activity_tweet_it);
 		
 		extras = getIntent().getExtras();
-		//TextView lab_token = (TextView) findViewById(R.id.lab_token);
-		//lab_token.setText(extras.get("token").toString());
+		this.token = extras.getString("token").toString();
 		
 		this.initFragment();
 		this.showFragment(this.myTweetListFrag);
@@ -60,6 +60,7 @@ public class TweetItActivity extends FragmentActivity implements OnFragmentInter
 				this.showFragment((Fragment) this.friendListFrag, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 				break;
 			case R.id.tweetItBtn :
+				this.showFragment((Fragment) this.postMessageFrag, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 				break;
 			default :
 				break;
@@ -78,6 +79,9 @@ public class TweetItActivity extends FragmentActivity implements OnFragmentInter
 		if(this.friendListFrag == null){
 			this.friendListFrag = ListItemFragment.newInstance(R.integer.friendList, "test");
 		}
+		
+		this.postMessageFrag = (NewMessageFragment) fragManager.findFragmentByTag(NewMessageFragment.TAG);
+		this.postMessageFrag = NewMessageFragment.newInstance(null, null);
 	}
 	
 	//showFragment simple, sans mise à jour du fragment (utile pour le fragment d'envoie de msg)
@@ -100,5 +104,9 @@ public class TweetItActivity extends FragmentActivity implements OnFragmentInter
 		final FragmentTransaction fragTransaction = fragManager.beginTransaction();
 		fragTransaction.replace(R.id.listItemFragContainer, fragment);
 		return fragTransaction.commit();
+	}
+	
+	public String getToken(){
+		return this.token;
 	}
 }

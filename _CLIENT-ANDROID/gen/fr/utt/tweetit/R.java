@@ -24,7 +24,8 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f05000e;
+        public static final int action_settings=0x7f050010;
+        public static final int btn_envoi=0x7f05000f;
         public static final int btn_login=0x7f050009;
         public static final int fragList_listView=0x7f05000d;
         public static final int friendsBtn=0x7f050003;
@@ -36,6 +37,7 @@ public final class R {
         public static final int meBtn=0x7f050002;
         public static final int textView2=0x7f050007;
         public static final int text_email=0x7f050005;
+        public static final int text_message=0x7f05000e;
         public static final int text_pass=0x7f050008;
         public static final int topMenuFragment=0x7f050000;
         public static final int tweetItBtn=0x7f050004;

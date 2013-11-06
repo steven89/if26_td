@@ -1,5 +1,7 @@
 package fr.utt.tweetit;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import fr.utt.tweetit.OnFragmentInteractionListener;
 
 /**
@@ -29,6 +33,9 @@ public class NewMessageFragment extends Fragment {
 	// TODO: Rename and change types of parameters
 	private String mParam1;
 	private String mParam2;
+	
+	private EditText message;
+	private Button btn_envoi;
 
 	private OnFragmentInteractionListener mListener;
 
@@ -63,14 +70,38 @@ public class NewMessageFragment extends Fragment {
 			mParam1 = getArguments().getString(ARG_PARAM1);
 			mParam2 = getArguments().getString(ARG_PARAM2);
 		}
+		
+		
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater
-				.inflate(R.layout.fragment_new_message, container, false);
+		
+		View rootView = inflater.inflate(R.layout.fragment_new_message, container, false);
+		
+		this.message = (EditText) rootView.findViewById(R.id.text_message);
+		this.btn_envoi = (Button) rootView.findViewById(R.id.btn_envoi);
+		
+		this.btn_envoi.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//envoi de la requete
+				JsonHttpRequest request = new JsonHttpRequest(new JsonHttpCallback() {
+					
+					@Override
+					public Object call(JSONObject jsonResponse) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+				});
+				String token = ((TweetItActivity) getActivity()).getToken();
+				request.execute("http://");
+			}
+		});
+		
+		return rootView;
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event
