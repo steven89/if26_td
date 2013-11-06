@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TweetltActivity" >
+
+    <fragment
+        android:id="@id/topMenuFragment"
+        android:name="fr.utt.tweetit.TopMenuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_top_menu" />
+
+    <FrameLayout 
+        android:id="@id/listItemFragContainer"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    ></FrameLayout>
+
+
+</LinearLayout>
