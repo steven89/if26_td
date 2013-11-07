@@ -74,6 +74,12 @@ public class TitleBarFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_title_bar, container, false);
 		this.app_title = (TextView) rootView.findViewById(R.id.appname);
 		this.app_copyright = (ImageView) rootView.findViewById(R.id.copyright);
+		this.app_copyright.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
 		return rootView;
 	}
 
