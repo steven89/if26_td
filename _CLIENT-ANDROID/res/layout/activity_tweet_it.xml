@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".TweetltActivity" >
+    
+    <fragment
+        android:id="@id/titleBar"
+        android:name="fr.utt.tweetit.TitleBarFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_title_bar" />
 
     <fragment
         android:id="@id/topMenuFragment"

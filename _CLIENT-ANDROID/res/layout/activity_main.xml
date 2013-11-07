@@ -1,12 +1,25 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context=".MainActivity" >
+    
+   
+    <fragment
+        android:id="@id/titleBar"
+        android:name="fr.utt.tweetit.TitleBarFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_title_bar" />
+        
+       
+    
+    <RelativeLayout
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent" >
+        
+    
 
     <EditText
         android:id="@+id/text_email"
@@ -22,7 +35,7 @@
         android:id="@+id/lab_token"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/text_email"
+        android:layout_alignBottom="@id/text_email"
         android:layout_alignParentLeft="true"
         android:text="Email"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -31,8 +44,8 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/lab_token"
-        android:layout_below="@+id/text_email"
+        android:layout_alignLeft="@id/lab_token"
+        android:layout_below="@id/text_email"
         android:layout_marginTop="17dp"
         android:text="Pass"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -41,9 +54,9 @@
         android:id="@+id/text_pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignLeft="@+id/text_email"
+        android:layout_alignBaseline="@id/textView2"
+        android:layout_alignBottom="@id/textView2"
+        android:layout_alignLeft="@id/text_email"
         android:ems="10"
         android:inputType="textPassword" >
 
@@ -54,8 +67,8 @@
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/text_pass"
-        android:layout_below="@+id/text_pass"
+        android:layout_alignRight="@id/text_pass"
+        android:layout_below="@id/text_pass"
         android:layout_marginTop="24dp"
         android:text="Login" />
 
@@ -63,10 +76,11 @@
         android:id="@+id/lab_connexion_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn_login"
-        android:layout_alignBottom="@+id/btn_login"
-        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignBaseline="@id/btn_login"
+        android:layout_alignBottom="@id/btn_login"
+        android:layout_alignLeft="@id/textView2"
         android:text="connexion status"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

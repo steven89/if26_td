@@ -4,5 +4,6 @@
     <item type="id" name="listItemFragContainer"/>
     <item type="id" name="meBtn"/>
     <item type="id" name="friendsBtn"/>
+     <item type="id" name="titleBar"/>
     <item type="id" name="tweetItBtn"/>
 </resources>
