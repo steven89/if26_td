@@ -97,7 +97,7 @@ public class NewMessageFragment extends Fragment {
 					}
 				});
 				String token = ((TweetItActivity) getActivity()).getToken();
-				request.execute("http://");
+				request.execute("http://train.sandbox.eutech-ssii.com/messenger/message.php?token");
 			}
 		});
 		

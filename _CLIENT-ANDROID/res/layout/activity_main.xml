@@ -59,4 +59,14 @@
         android:layout_marginTop="24dp"
         android:text="Login" />
 
+    <TextView
+        android:id="@+id/lab_connexion_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_login"
+        android:layout_alignBottom="@+id/btn_login"
+        android:layout_alignLeft="@+id/textView2"
+        android:text="connexion status"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>

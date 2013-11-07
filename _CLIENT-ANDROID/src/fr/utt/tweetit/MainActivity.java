@@ -17,32 +17,41 @@ public class MainActivity extends Activity {
 	
 	private EditText email;
 	private EditText passwd;
-	private TextView token;
+	private TextView connexion_status;
+	private Button btn_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // fields
-        email = (EditText) findViewById(R.id.text_email);
-        passwd = (EditText) findViewById(R.id.text_pass);
-        email.setText("test1@test.fr");
-        passwd.setText("test");
-        Button button = (Button) findViewById(R.id.btn_login);
+        this.email = (EditText) findViewById(R.id.text_email);
+        this.passwd = (EditText) findViewById(R.id.text_pass);
+        this.connexion_status = (TextView) findViewById(R.id.lab_connexion_status);
+        this.connexion_status.setText("");
+        this.email.setText("test1@test.fr");
+        this.passwd.setText("test");
+        this.btn_login = (Button) findViewById(R.id.btn_login);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        this.btn_login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // check login
+            	connexion_status.setText("Connexion...");
             	JsonHttpRequest request = new JsonHttpRequest(new JsonHttpCallback() {
 					@Override
 					public Object call(JSONObject jsonResponse) {
-						
 						try {
-							Intent loadAccueil = new Intent(getApplicationContext(), TweetItActivity.class);
-			                loadAccueil.putExtra("token", jsonResponse.getString("token"));
-			                startActivity(loadAccueil);
+							if(!jsonResponse.getBoolean("error")){
+								Intent loadAccueil = new Intent(getApplicationContext(), TweetItActivity.class);
+				                loadAccueil.putExtra("token", jsonResponse.getString("token"));
+				                startActivity(loadAccueil);
+				                connexion_status.setText("");
+							}
+							else{
+								connexion_status.setText("Invalid login/password");
+							}
 						} catch (JSONException e) {
-							e.printStackTrace();
+							connexion_status.setText("Network error");
 						}
 						
 						return null;
