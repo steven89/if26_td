@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item type="id" name="topMenuFragment" />
-    <item type="id" name="listItemFragContainer"/>
-    <item type="id" name="meBtn"/>
-    <item type="id" name="friendsBtn"/>
-    <item type="id" name="tweetItBtn"/>
-</resources>

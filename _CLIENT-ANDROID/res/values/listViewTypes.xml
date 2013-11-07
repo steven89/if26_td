@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="friendList" type="integer" format="integer">1</item>
-    <item format="integer" type="integer" name="defaultList">0</item>
-    
-</resources>
