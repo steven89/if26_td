@@ -28,7 +28,7 @@ public class WebServiceManager {
 		try {
 			data.add(new JSONObject("{'last_name':'Calderan', 'first_name':'Julien', 'email':'julien@test.fr'}"));
 			data.add(new JSONObject("{'last_name':'Salaun', 'first_name':'Steven', 'email':'steven@test.fr'}"));
-			data.add(new JSONObject("{'last_name':'Sokolova', 'first_name':'Karina', 'email':'test2@test.fr'}"));
+			data.add(new JSONObject("{'last_name':'Perez', 'first_name':'Karina', 'email':'test2@test.fr'}"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
