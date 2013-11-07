@@ -5,4 +5,8 @@
     <item type="id" name="meBtn"/>
     <item type="id" name="friendsBtn"/>
     <item type="id" name="tweetItBtn"/>
+    <item type="id" name="intermediateMenuFragment"/>
+    <item type="id" name="intermediateMenuFragContainer"/>
+    <item type="id" name="followersBtn"/>
+    <item type="id" name="followeesBtn"/>
 </resources>

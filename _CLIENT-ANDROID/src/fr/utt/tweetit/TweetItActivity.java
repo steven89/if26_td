@@ -16,8 +16,10 @@ import fr.utt.tweetit.OnFragmentInteractionListener;
 public class TweetItActivity extends FragmentActivity implements OnFragmentInteractionListener{
 
 	private  ListItemFragment myTweetListFrag;
-	private  ListItemFragment friendListFrag;
+	private  ListItemFragment followersList;
+	private  ListItemFragment followeesList;
 	private NewMessageFragment postMessageFrag;
+	private IntermediateMenuFragment intermediateMenu;
 	
 	private Fragment currentFrag;
 
@@ -37,7 +39,7 @@ public class TweetItActivity extends FragmentActivity implements OnFragmentInter
 		this.token = extras.getString("token").toString();
 		
 		this.initFragment();
-		this.showFragment(this.myTweetListFrag);
+		this.showFragment(R.id.listItemFragContainer, this.myTweetListFrag);
 	}
 
 	@Override
@@ -54,14 +56,23 @@ public class TweetItActivity extends FragmentActivity implements OnFragmentInter
 		// l'id est stocké dans la partie 'fragment' de l'Uri (ex : 'protocol://domain/path#fragment)
 		switch((Integer.parseInt(uri.getFragment()))){
 			case R.id.meBtn : 
-				this.showFragment((Fragment) this.myTweetListFrag);
+				this.removeFragment((Fragment) this.intermediateMenu);
+				this.showFragment(R.id.listItemFragContainer, (Fragment) this.myTweetListFrag);
 				break;
 			case R.id.friendsBtn :
-				Log.d("LIST_TYPE", "R.integer.friendList");
-				this.showFragment((Fragment) this.friendListFrag);
+				this.showFragment(R.id.intermediateMenuFragContainer, (Fragment) this.intermediateMenu);
+				if(!(this.followeesList.isInLayout()) || this.followersList.isInLayout())
+					this.showFragment(R.id.listItemFragContainer, (Fragment) this.followersList);
 				break;
 			case R.id.tweetItBtn :
-				this.showFragment((Fragment) this.postMessageFrag);
+				this.removeFragment((Fragment) this.intermediateMenu);
+				this.showFragment(R.id.listItemFragContainer, (Fragment) this.postMessageFrag);
+				break;
+			case R.id.followeesBtn :
+				this.showFragment(R.id.listItemFragContainer, (Fragment) this.followeesList);
+				break;
+			case R.id.followersBtn :
+				this.showFragment(R.id.listItemFragContainer, (Fragment) this.followersList);
 				break;
 			default :
 				break;
@@ -73,44 +84,51 @@ public class TweetItActivity extends FragmentActivity implements OnFragmentInter
 		//pour chaque frag dynamique
 		this.myTweetListFrag = (ListItemFragment) fragManager.findFragmentByTag(ListItemFragment.TAG);
 		if(this.myTweetListFrag == null){
-			this.myTweetListFrag = ListItemFragment.newInstance(R.integer.defaultList, "test");
+			this.myTweetListFrag = ListItemFragment.newInstance(R.integer.defaultList, null);
 		}
 		
-		this.friendListFrag = (ListItemFragment) fragManager.findFragmentByTag(ListItemFragment.TAG);
-		if(this.friendListFrag == null){
-			this.friendListFrag = ListItemFragment.newInstance(R.integer.friendList, "test");
+		this.followersList = (ListItemFragment) fragManager.findFragmentByTag(ListItemFragment.TAG);
+		if(this.followersList == null){
+			this.followersList = ListItemFragment.newInstance(R.integer.followersList, null);
+		}
+		
+		this.followeesList = (ListItemFragment) fragManager.findFragmentByTag(ListItemFragment.TAG);
+		if(this.followeesList == null){
+			this.followeesList = ListItemFragment.newInstance(R.integer.followeesList, null);
 		}
 		
 		this.postMessageFrag = (NewMessageFragment) fragManager.findFragmentByTag(NewMessageFragment.TAG);
-		this.postMessageFrag = NewMessageFragment.newInstance(null, null);
+		if(this.postMessageFrag == null){
+			this.postMessageFrag = NewMessageFragment.newInstance(null, null);
+		}
+		
+		this.intermediateMenu = (IntermediateMenuFragment) fragManager.findFragmentByTag(IntermediateMenuFragment.TAG);
+		if(this.intermediateMenu == null){
+			this.intermediateMenu = IntermediateMenuFragment.newInstance(null, null);
+		}
 	}
 	
-	//showFragment simple, sans mise à jour du fragment (utile pour le fragment d'envoie de msg)
-	public int showFragment(final Fragment fragment, int directionFrom, int directionTo){
+	public int showFragment(int containerID, final Fragment fragment){
 		if(fragment == null){
 			return 0;
 		}
 		final FragmentManager fragManager = getSupportFragmentManager();
 		final FragmentTransaction fragTransaction = fragManager.beginTransaction();
-		fragTransaction.setCustomAnimations(directionFrom, directionTo);
-		//fragTransaction.replace(R.id.listItemFragContainer, fragment);
-		fragTransaction.detach(this.currentFrag);
-		this.currentFrag = fragment;
-		fragTransaction.attach(this.currentFrag);
-		return fragTransaction.commit();
-	}
-	
-	public int showFragment(final Fragment fragment){
-		if(fragment == null){
-			return 0;
-		}
-		final FragmentManager fragManager = getSupportFragmentManager();
-		final FragmentTransaction fragTransaction = fragManager.beginTransaction();
-		fragTransaction.replace(R.id.listItemFragContainer, fragment);
+		fragTransaction.replace(containerID, fragment);
 		/*if(this.currentFrag!=null)
 			fragTransaction.detach(this.currentFrag);
 		this.currentFrag = fragment;
 		fragTransaction.attach(this.currentFrag);*/
+		return fragTransaction.commit();
+	}
+	
+	public int removeFragment(final Fragment fragment){
+		if(fragment == null){
+			return 0;
+		}
+		final FragmentManager fragManager = getSupportFragmentManager();
+		final FragmentTransaction fragTransaction = fragManager.beginTransaction();
+		fragTransaction.remove(fragment);
 		return fragTransaction.commit();
 	}
 	

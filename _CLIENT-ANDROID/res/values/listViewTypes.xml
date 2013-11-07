@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="friendList" type="integer" format="integer">1</item>
+    <item name="followersList" type="integer" format="integer">1</item>
+    <item name="followeesList" type="integer" format="integer">2</item>
     <item format="integer" type="integer" name="defaultList">0</item>
     
 </resources>
