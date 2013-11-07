@@ -7,7 +7,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,11 +20,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 import fr.utt.tweetit.OnFragmentInteractionListener;
 
 /**
@@ -49,6 +56,7 @@ public class ListItemFragment extends Fragment {
 	private ListView listView;
 	//adapter entre la listView et les données
 	private  ArrayAdapter DataToViewAdapter; 
+	private ArrayList dataList;
 	
 	/********************** FACTORY AND CONSTRUCTOR **********************************/
 	/**
@@ -103,17 +111,29 @@ public class ListItemFragment extends Fragment {
 		if(getArguments() != null){	
 			switch(getArguments().getInt(ListItemFragment.LISTVIEW_TYPE)){
 				case R.integer.defaultList :
-					ArrayList<String> samples = WebServiceManager.getSimpleData();
-					Log.i("steven", samples.toString());
-					dataToView = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, samples); 
+					this.dataList = WebServiceManager.getSimpleData();
+					Log.i("steven", this.dataList.toString());
+					dataToView = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, this.dataList); 
 					this.listView.setAdapter(dataToView);
 					break;
-				case  R.integer.friendList: 
+				case  R.integer.followersList: 
 					//SAMPLE DATA
-					ArrayList<JSONObject> data = WebServiceManager.getJSONData();
-					dataToView = new ContactArrayAdapter(getActivity(), data);
-					Log.d("DATA", (Integer.toString(data.size())));
+					this.dataList = WebServiceManager.getFollowersData();
+					dataToView = new ContactArrayAdapter(getActivity(), this.dataList);
+					Log.d("DATA", (Integer.toString(this.dataList.size())));
 					this.listView.setAdapter(dataToView);
+					this.setItemClickHandler();
+					break;
+					
+				case  R.integer.followeesList: 
+					//SAMPLE DATA
+					this.dataList = WebServiceManager.getFolloweesData();
+					dataToView = new ContactArrayAdapter(getActivity(), this.dataList);
+					Log.d("DATA", (Integer.toString(this.dataList.size())));
+					this.listView.setAdapter(dataToView);
+					this.setItemClickHandler();
+					break;
+				default : 
 					break;
 			}
 		}
@@ -145,6 +165,34 @@ public class ListItemFragment extends Fragment {
 		if (mListener != null) {
 			mListener.onFragmentInteraction(uri);
 		}
+	}
+	
+	private void setItemClickHandler(){
+		if(this.listView == null)
+			return;
+		final Activity currentActivity = (Activity) getActivity();
+		this.listView.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View rawClickedView, int itemPosition, long itemId) {
+				Log.d("ITEM CLICKED", rawClickedView.toString() );
+				final Dialog popup = new Dialog(currentActivity);
+				popup.setContentView(R.layout.fragment_new_message);
+				popup.setTitle(R.string.newTweet);
+				popup.setCancelable(true);
+				Button sendBtn = (Button) popup.findViewById(R.id.btn_envoi);
+				final TextView inputMessage = (TextView) popup.findViewById(R.id.text_message);
+				sendBtn.setOnClickListener(new View.OnClickListener(){
+
+					@Override
+					public void onClick(View v) {
+						WebServiceManager.postNewMessage(inputMessage.getText().toString());
+						popup.dismiss();
+					}
+					
+				});
+				popup.show();
+			}});
 	}
 	
 	/******************** GETTERS AND SETTERS **********************************/

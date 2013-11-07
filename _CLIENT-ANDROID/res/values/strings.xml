@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_tweet_it">TweetItActivity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="newTweet">Tweet new message</string>
 
 </resources>

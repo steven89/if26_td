@@ -4,36 +4,37 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import fr.utt.tweetit.OnFragmentInteractionListener;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Activities that
  * contain this fragment must implement the
- * {@link TopMenuFragment.OnFragmentInteractionListener} interface to handle
- * interaction events. Use the {@link TopMenuFragment#newInstance} factory
- * method to create an instance of this fragment.
+ * {@link IntermediateMenuFragment.OnFragmentInteractionListener} interface to
+ * handle interaction events. Use the
+ * {@link IntermediateMenuFragment#newInstance} factory method to create an
+ * instance of this fragment.
  * 
  */
-public class TopMenuFragment extends Fragment {
+public class IntermediateMenuFragment extends Fragment {
 	//Tag de classe, permettant de récupérer les fragments de cette classe
 	// ex :TopMenuFragment test = (TopMenuFragment) fragManager.findFragmentByTag(TopMenuFragment.TAG)
-	public static final String TAG = "topMenuFragment";
-	public static final String UriPath = "application/TopMenuFragment";
+	public static final String TAG = "intermediateMenuFragment";
+	public static final String UriPath = "application/IntermediateMenuFragment";
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
 	private static final String ARG_PARAM2 = "param2";
 
-	private OnFragmentInteractionListener mListener;
-	private Button meBtn;
-	private Button friendsBtn;
-	private Button tweetItBtn;
+	// TODO: Rename and change types of parameters
+	private String mParam1;
+	private String mParam2;
 
+	private OnFragmentInteractionListener mListener;
+	private Button followersBtn;
+	private Button followeesBtn;
 	/**
 	 * Use this factory method to create a new instance of this fragment using
 	 * the provided parameters.
@@ -42,11 +43,12 @@ public class TopMenuFragment extends Fragment {
 	 *            Parameter 1.
 	 * @param param2
 	 *            Parameter 2.
-	 * @return A new instance of fragment TopMenuFragment.
+	 * @return A new instance of fragment IntermediateMenuFragment.
 	 */
 	// TODO: Rename and change types and number of parameters
-	public static TopMenuFragment newInstance(String param1, String param2) {
-		TopMenuFragment fragment = new TopMenuFragment();
+	public static IntermediateMenuFragment newInstance(String param1,
+			String param2) {
+		IntermediateMenuFragment fragment = new IntermediateMenuFragment();
 		Bundle args = new Bundle();
 		args.putString(ARG_PARAM1, param1);
 		args.putString(ARG_PARAM2, param2);
@@ -54,16 +56,16 @@ public class TopMenuFragment extends Fragment {
 		return fragment;
 	}
 
-	public TopMenuFragment() {
+	public IntermediateMenuFragment() {
 		// Required empty public constructor
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (getArguments() != null) {
-			getArguments().getString(ARG_PARAM1);
-			getArguments().getString(ARG_PARAM2);
+			mParam1 = getArguments().getString(ARG_PARAM1);
+			mParam2 = getArguments().getString(ARG_PARAM2);
 		}
 	}
 
@@ -71,21 +73,11 @@ public class TopMenuFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		View rootView = inflater.inflate(R.layout.fragment_top_menu, container, false);
-		this.meBtn = (Button) rootView.findViewById(R.id.meBtn);
-		this.friendsBtn = (Button) rootView.findViewById(R.id.friendsBtn);
-		this.tweetItBtn = (Button) rootView.findViewById(R.id.tweetItBtn);
+		View rootView = inflater.inflate(R.layout.fragment_intermediate_menu, container, false);
+		this.followeesBtn = (Button) rootView.findViewById(R.id.followeesBtn);
+		this.followersBtn = (Button) rootView.findViewById(R.id.followersBtn);
 		
-		this.meBtn.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Log.d("VIEW CLICK", v.toString());
-				mListener.onFragmentInteraction(Uri.parse("click://"+UriPath+"#"+v.getId()));
-			}
-		});
-		
-		this.friendsBtn.setOnClickListener(new View.OnClickListener() {
+		this.followeesBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -93,7 +85,7 @@ public class TopMenuFragment extends Fragment {
 			}
 		});
 		
-		this.tweetItBtn.setOnClickListener(new View.OnClickListener() {
+		this.followersBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -113,7 +105,6 @@ public class TopMenuFragment extends Fragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		Log.d("ATACH TOPMENU", this.toString());
 		try {
 			mListener = (OnFragmentInteractionListener) activity;
 		} catch (ClassCastException e) {
@@ -124,12 +115,7 @@ public class TopMenuFragment extends Fragment {
 
 	@Override
 	public void onDetach() {
-		Log.d("DETACH TOPMENU", this.toString());
 		super.onDetach();
-		this.mListener = null;
-		this.meBtn = null;
-		this.friendsBtn = null;
-		this.tweetItBtn = null;
+		mListener = null;
 	}
-
 }
