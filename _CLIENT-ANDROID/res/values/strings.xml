@@ -7,5 +7,8 @@
     <string name="title_activity_tweet_it">TweetItActivity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="newTweet">Tweet new message</string>
-
+    <string name="auteur_Label">Développer par :</string>
+	<string name="auteur_julien">Julien Calderan</string>
+	<string name="auteur_steven">Steven Salaun</string>
+    <string name="auteur_title">Auteurs</string>
 </resources>

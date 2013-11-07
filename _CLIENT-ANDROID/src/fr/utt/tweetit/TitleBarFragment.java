@@ -1,6 +1,7 @@
 package fr.utt.tweetit;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.sax.RootElement;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -74,10 +76,25 @@ public class TitleBarFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_title_bar, container, false);
 		this.app_title = (TextView) rootView.findViewById(R.id.appname);
 		this.app_copyright = (ImageView) rootView.findViewById(R.id.copyright);
+		final Activity currentActivity = this.getActivity();
 		this.app_copyright.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				final Dialog popup = new Dialog(currentActivity);
+				popup.setContentView(R.layout.auteur_layout);
+				popup.setTitle(R.string.auteur_title);
+				popup.setCancelable(true);
+				//Button sendBtn = (Button) popup.findViewById(R.id.btn_envoi);
+//				sendBtn.setOnClickListener(new View.OnClickListener(){
+//
+//					@Override
+//					public void onClick(View v) {
+//						WebServiceManager.postNewMessage(inputMessage.getText().toString());
+//						popup.dismiss();
+//					}
+//					
+//				});
+				popup.show();
 			}
 		});
 		return rootView;
